@@ -42,7 +42,7 @@
                   <div class="input-group mb-3">
                     <div class="custom-control custom-switch "id="tog">
                           <input class="form-check-input show" name="catshow" type="checkbox" id="show" >
-                          <label class="form-check-label lbl" for="show" >Activate</label>
+                          <label class="form-check-label lbl" for="show" >susspend</label>
                     </div>
                   </div>
                 </div> 
@@ -58,4 +58,116 @@
             </form>
     </div>
  </div>
+
+<!--______________________________________________________________________________________________________----->
+<script>
+function newUser(byadmin,message){
+
+  $.validator.addMethod("alphaspace", function(value, element) {
+    var regex = new RegExp(/^[a-zA-Z\s]+$/);
+    return value.match(new RegExp(regex));
+  });
+
+
+  $(".registration").validate({
+    rules: {
+      fname: {required: true,
+              alphaspace: true,
+             },
+      lname: {required: true,
+              alphaspace: true,
+             },
+    email: {
+      required: true,
+      email: true
+          },
+    pwd:{
+      required: true,
+      minlength:4,
+      maxlength:24,
+
+        },
+    cpwd: {
+      equalTo: ".pwd"
+
+        },
+    },
+    messages: {      
+      fname: {required:"Please enter your firstname",
+             alphaspace:"The first name must contain alpha characters and space only"
+            },
+      lname: {required:"Please enter your lastname",
+              alphaspace:"The last name must contain alpha characters and space only"
+            },
+      email: {required:"Please enter email",
+              email:"email not valid ",
+            }, 
+      pwd: {required:"Please enter password",
+            minlength:"must be 4 charachters at least ",
+            maxlength:"must be less than 24 charachters ",
+            
+           },  
+      cpwd: {equalTo:"password and confirm password not matches"}      
+    },
+
+
+    submitHandler: function(form) {
+      event.preventDefault(); 
+    var firstname=$('.fname').val().trim();
+    var lastname=$('.lname').val().trim();
+    var email=$('.email').val().trim();
+    var password=$('.pwd').val().trim();
+    var confirmpassword=$('.cpassword').val().trim();
+    var isHide;
+    if($('.show').is(':checked')){
+    isactive='on';
+    }else 
+    isactive='off';
+
+      $.ajax({
+          type: 'POST',  
+          url:"<?php echo base_url('Admin/Users/add');?>" , 
+          data: {
+              fname:firstname,
+              lname:lastname,
+              email:email,
+              password:password,
+              cpassword:confirmpassword,
+              suspend:isactive,
+              add:byadmin,
+          },
+          success: function(issuccess) {
+            if(issuccess==true){
+              $('.msuccess').html(message);
+              $('.merror').html('');       
+            }
+            else{
+            var array = JSON.parse(issuccess)
+            var errors='';
+            if(array['fname']!=null)
+              errors=array['fname']+"<br>";
+            if(array['lname']!=null)
+              errors=errors+array['lname']+"<br>";
+            if(array["email"]!=null)
+              errors=errors+array["email"]+"<br>";
+            if(array["password"]!=null)
+              errors=errors+array["password"]+"<br>";
+            if(array["cpassword"]!=null)
+              errors=errors+array["cpassword"]+"<br>";
+            $('.merror').html(errors);
+            $('.msuccess').html('') ;                       
+            }
+          },              
+          error: function(){alert('not sent');},
+      });//end ajax
+
+     //___________________________________________ 
+    },//end submit handler
+  });//end form validate
+
+
+
+}
+
+</script>
 

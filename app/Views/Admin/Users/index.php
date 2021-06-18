@@ -15,7 +15,7 @@
      <th class="d-none">Id</th>
       <th class="">Name</th>
       <th class="">Email</th>
-      <th class="">Active Account</th>
+      <th class="">Is suspend</th>
       <th class="">Edit</th>
     </tr>
   </thead>
@@ -55,53 +55,10 @@ $(".adduser").click(function(){
 });
 //-----------------------------------------------------------------------
 $('.add').click(function() {
-    event.preventDefault();   
-    var firstname=$('.fname').val().trim();
-    var lastname=$('.lname').val().trim();
-    var email=$('.email').val().trim();
-    var password=$('.pwd').val().trim();
-    var confirmpassword=$('.cpassword').val().trim();
-    var isHide;
-    if($('.show').is(':checked')){
-    isactive='on';
-    }else 
-    isactive='off'
-      $.ajax({
-          type: 'POST',  
-          url:"<?php echo base_url('Admin/Users/add');?>" , 
-          data: {
-              fname:firstname,
-              lname:lastname,
-              email:email,
-              password:password,
-              cpassword:confirmpassword,
-              suspend:isactive,
-          },
-          success: function(issuccess) {
-            if(issuccess==true){
-              $('.msuccess').html("Added Successfully ");
-              $('.merror').html('');       
-            }
-            else{
-            var array = JSON.parse(issuccess)
-            var errors='';
-            if(array['fname']!=null)
-              errors=array['fname']+"<br>";
-            if(array['lname']!=null)
-              errors=errors+array['lname']+"<br>";
-            if(array["email"]!=null)
-              errors=errors+array["email"]+"<br>";
-            if(array["password"]!=null)
-              errors=errors+array["password"]+"<br>";
-            if(array["cpassword"]!=null)
-              errors=errors+array["cpassword"]+"<br>";
-            $('.merror').html(errors);
-            $('.success').html('') ;                       
-            }
-          },              
-          error: function(){alert('not sent');},
-      });//end ajax
-  });//end onclik
+  newUser(1,"Added Successfully ");
+});//end add 
+//__________________________________________________________________________________________________________________________
+
 //_______________________________________________________________________________________________________________________________
 //hide add button when click edit button and get data
 $(".edituser").click(function(){

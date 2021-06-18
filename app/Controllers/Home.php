@@ -41,8 +41,8 @@ class Home extends BaseController
 			$user_pwd  = $this->request->getPost('upwd');
 			$obj=new UsersModel();
 			
-			if($obj->login($user_email,$user_pwd)){
-				$data=$obj->login($user_email,$user_pwd);
+			$data=$obj->login($user_email,$user_pwd);
+			if($data["err"]==0){
 			    $this->session->set('login',true);
 			    $name="Welcome ".$data["fname"];
 				$this->session->set('uname',$name);

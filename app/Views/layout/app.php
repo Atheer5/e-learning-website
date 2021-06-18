@@ -9,7 +9,7 @@
     <meta name="author" content="" />
     <title>E-Learning</title>
     <link href="<?php echo base_url('assets/css/elearning.css'); ?>" rel="stylesheet" />
-    <link href="<?php echo base_url('assets/css/elearningadminnnnnnnnn.css'); ?>" rel="stylesheet" />
+    <link href="<?php echo base_url('assets/css/elearningadminnnnnnnnnn.css'); ?>" rel="stylesheet" />
     <link href="<?php echo base_url('assets/css/fontawesome.min.css'); ?>" rel="stylesheet" />
     <link rel="shortcut icon" href="<?php echo base_url('assets/images/elogo.png'); ?>" />
     <script src="<?php echo base_url('assets/js/jquery-3.6.0.min.js'); ?>" crossorigin="anonymous"></script>
@@ -30,6 +30,9 @@
             
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav ml-auto   ">
+                <?php if (session('adminlayout')) : ?>
+                    <li class="nav-item"><a class="nav-link nav-custom-link set-item-center  bg-light" href="<?php echo base_url('Admin/Users/newUsers'); ?>">New accounts</a></li>
+                <?php endif; ?>
                 <?php if (!session('adminlayout')) : ?>
                     <li class="nav-item"><a class="nav-link nav-custom-link set-item-center" href="<?php echo base_url('Home'); ?>">Home</a></li>
                     <?php $limitnum = "10" ;$sortorder='DESC';$sortby='date';?>
@@ -99,7 +102,7 @@
         <!--end navbarsearch-->
     <?php endif; ?>   
          <!--end topnav-->  
-            <main class="mb-5">           
+            <main class="mb-5 mt-5">           
                 <div class="container-fluid ">
                     <div class="row">
                         <div class="col-12 text-center pagetitle">
@@ -215,7 +218,7 @@ function seturl(){
 $(".categorylink").click(function(){
         localStorage.setItem('fromcategory',2);
         localStorage.setItem('pagenum',1);
-        localStorage.setItem('limitnum',1);
+        localStorage.setItem('limitnum',10);
         localStorage.setItem('sortby','date');
         localStorage.setItem('sortype','DESC');
         localStorage.setItem('limitval',2);

@@ -47,21 +47,21 @@
       <div id="" class=" mt-1 text-success text-center message msuccess"></div>     
       <div id=""  class="text-danger text-center mt-2 name_error merror"></div>
     <div class="m-header text-center pt-1">
-      <h5 class="modal-title " id="title"></h5>
+      <h5 class="modal-title lbl" id="title"></h5>
     </div>
       <form  enctype="multipart/form-data">
         <div class="m-body p-3 ">
           <div class="form-group">
-            <label for="coursetitle" class="required">Course Title</label>
+            <label for="coursetitle" class="required lbl">Course Title</label>
             <input type="text" class="form-control title" id="coursetitle" placeholder="Course title">
           </div>
 
           <div class="form-group" >
-            <label for="coursedesc" class="required">Course description</label>
+            <label for="coursedesc" class="required lbl">Course description</label>
             <textarea class="form-control desc" id="coursedesc" rows="3"></textarea>
           </div>
           <div class="form-group">
-            <label for="coursecat"class="required catname">Course category</label>
+            <label for="coursecat"class="required catname lbl">Course category</label>
             <select class="form-control coursecat" id="coursecat">
             <?php foreach ($Categories as $category) { ?>
               <option><?php echo $category["category_name"]; ?></option>
@@ -70,15 +70,15 @@
           </div>
 
           <div class="form-group">
-            <label for="coursevl"class="required">video link</label>
+            <label for="coursevl"class="required lbl">video link</label>
             <input type="text" class="form-control vlink" id="coursevl" placeholder="video link">
           </div>
           <div class="form-group">
-            <label for="courseIl"class="required">image link</label>
+            <label for="courseIl"class="required lbl">image link</label>
             <input type="text" class="form-control Ilink" id="courseIl" placeholder="Image link">
           </div>
           <div class="form-group">
-            <label for="coursefile" class="required">pdf file</label>
+            <label for="coursefile" class="required lbl">pdf file</label>
             <input type="file" name="file" accept=".pdf" class="form-control-file pdffile" id="file">
             <span class="fileuploaded"> </span>
           </div>
@@ -86,7 +86,7 @@
              <div class="input-group mb-3">
                 <div class="custom-control custom-switch ">
                     <input class="form-check-input show" name="catshow" type="checkbox" id="show" >
-                     <label class="form-check-label show" for="show" >show in public website</label>
+                     <label class="form-check-label show lbl" for="show" >show in public website</label>
                  </div>
               </div>
            </div> 

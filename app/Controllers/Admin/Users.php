@@ -7,7 +7,7 @@ class Users extends BaseController
 {
 
 	function __construct()
-    {	
+    {	$this->email = \Config\Services::email();
        	$this->session = \Config\Services::session();
         $this->session->start();
 
@@ -39,6 +39,7 @@ class Users extends BaseController
 			$password=$this->request->getPost('password');
 			$cpassword= $this->request->getPost('cpassword');
 			$is_suspend=$this->request->getPost('suspend');
+			$add=$this->request->getPost('add');
 			$epassword=md5($password);
             
 
@@ -77,8 +78,16 @@ class Users extends BaseController
 				echo json_encode($errors);;
 
 			}else{
+				if($add==1){
+				$admin=0;
+   			    $not_approveed=0;
+				$this->sendEmail($email);
+			}
+				if($add==2){
+					$admin=0;
+					$not_approveed=1;}
 				$obj=new UsersModel();
-				$obj->add($fname, $lname,$email,$epassword,$is_suspend);
+				$obj->add($fname, $lname,$email,$epassword,$is_suspend,$admin,$not_approveed);
 				echo true;
 
 			}
@@ -163,5 +172,38 @@ public function getdata(){
 			}//end if post
 
 	}
+//____________________________________________________________________________________________
+
+public function newUsers(){
+	$obj=new UsersModel();
+	$selected_data['Users']=$obj->selectnewusers();
+	$this->loadview('admin/Users/NewUsers',"New Users",$selected_data);
+
+
+}
+//_____________________________________________________________________________________________________
+public function approveAccount(){
+	$uid= $this->request->getPost('uid');
+	$email= $this->request->getPost('email');
+	$this->sendEmail($email);
+	$obj=new UsersModel();
+	return $obj->approveAccount($uid);
+
+}
+//________________________________________________________________________________
+public function sendEmail($email){
+
+$this->email->setTo($email);
+$this->email->setFrom('E-learning@example.com');
+$this->email->setSubject('Registeration confirmation');
+$this->email->setMessage('Thank you for joining us and welcome to our website. You can now login ');
+$this->email->send();
+
+
+
+}
+
+
+
 }
 ?>

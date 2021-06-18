@@ -43,13 +43,13 @@
       <div id="message" class=" mt-2 text-success text-center message"></div>     
       <div id="name_error"  class="text-danger text-center mt-2 name_error"></div>
       <div class="m-header text-center pt-3">
-        <h5 class="modal-title " id="title"></h5>
+        <h5 class="modal-title lbl" id="title"></h5>
       </div>        
           <form id="contact_form">
               <div class="m-body p-5 text-center">
                 <div class="form-group">  
                   <div class="input-group mb-3">
-                    <div class="input-group-prepend">
+                    <div class="input-group-prepend lbl">
                       <span class="input-group-text required " id="basic-addon2">Category Name</span>
                     </div>
                         <input type="text" class="form-control catname "placeholder="Category name" name="catname" id="catname">
@@ -59,7 +59,7 @@
                   <div class="input-group mb-3">
                     <div class="custom-control custom-switch ">
                           <input class="form-check-input show" name="catshow" type="checkbox" id="show" >
-                          <label class="form-check-label" for="show" >show in public website</label>
+                          <label class="form-check-label lbl" for="show" >show in public website</label>
                     </div>
                   </div>
                 </div> 

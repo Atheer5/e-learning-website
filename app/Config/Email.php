@@ -41,7 +41,6 @@ class Email extends BaseConfig
 	 * @var string
 	 */
 	public $mailPath = '/usr/sbin/sendmail';
-
 	/**
 	 * SMTP Server Address
 	 *

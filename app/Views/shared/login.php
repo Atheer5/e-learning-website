@@ -1,22 +1,23 @@
 <div class="modal-dialog  modal-dialog-centered" >
     <div class="modal-content custom-modal ">
+    <div id="" class=" mt-1 text-danger text-center merror "></div>  
       <div class="m-header text-center pt-5">
-        <h5 class="modal-title " id="staticBackdropLabel">Login </h5>
+        <h5 class="modal-title lbl" id="staticBackdropLabel">Login </h5>
       </div> 
             <form id="loginform">
               <div class="m-body p-5 ">              
                   <div class="form-group">
-                  <label for="email"class="required">Email</label>
+                  <label for="email"class="required  lbl">Email</label>
                   <input type="email" class="form-control uemail" id="email" placeholder="email" name="uemail">
                 </div>
 
                 <div class="form-group">
-                  <label for="pwd" class="required">Passowrd</label>
+                  <label for="pwd" class="required lbl">Passowrd</label>
                   <input type="password" class="form-control upwd" id="pwd" placeholder="password" name="upwd">
                 </div>
 
-                <div class="form-group">
-                <i>Don't have an account yet?</i>
+                <div class="form-group lbl">
+                <lable >Don't have an account yet?</lable>
                 <a type="button" class="nav-custom-link userRegister" data-toggle="modal" id="myBtn" data-target="#register" >
                     Sign up
                 </a>
@@ -55,23 +56,36 @@ $("#myBtn").click(function(){
                 },
             success: function(data) {
                     var array = JSON.parse(data);
-                    if(array==null)                 
-                        alert("We couldn't sign you in, Email or password is incorrect");
-                   else {
-                   if(array["is_admin"]==1){
-                    var admin_dashboard  ="<?php echo base_url('Admin/Users');?>";
-                    user_email.value=array["id"];
-                    document.getElementById("loginform").action = admin_dashboard;
-                    document.getElementById("loginform").method ='post';
-                    document.getElementById("loginform").submit();
-                   }//login as admin 
-                   else{
-                    var admin_dashboard  ="<?php echo base_url('Home/index');?>";
-                    document.getElementById("loginform").action = admin_dashboard;
-                    document.getElementById("loginform").method ='post';
-                    document.getElementById("loginform").submit();
-                   }//login as user
-              }
+                    if(array["err"]==3)                 
+                    $('.merror').html("We couldn't sign you in, Email  is incorrect");
+                    else{
+                      if(array["err"]==2)
+                        $('.merror').html("We couldn't sign you in, password  is incorrect");
+                      else{
+                        if(array["err"]==1)
+                          $('.merror').html("We couldn't sign you in, youre account is suspend");
+                        else {
+                            if(array["is_admin"]==1){
+                              var admin_dashboard  ="<?php echo base_url('Admin/Users');?>";
+                              user_email.value=array["id"];
+                              document.getElementById("loginform").action = admin_dashboard;
+                              document.getElementById("loginform").method ='post';
+                              document.getElementById("loginform").submit();
+                            }//login as admin 
+                            else{
+                              var admin_dashboard  ="<?php echo base_url('Home/index');?>";
+                              document.getElementById("loginform").action = admin_dashboard;
+                              document.getElementById("loginform").method ='post';
+                              document.getElementById("loginform").submit();
+                            }//login as user
+                        }//succsess login
+                                  
+
+                      }//emial
+                    }//pwd
+
+
+                   
                      
                     
             },            
